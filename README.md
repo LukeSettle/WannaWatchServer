@@ -1,0 +1,1 @@
+## Make sure to set the ngrok var in the socket context and also in the azure pub sub settings for the eventhandler
