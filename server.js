@@ -72,21 +72,31 @@ let handler = new WebPubSubEventHandler(hubName, {
               game: game
             });
 
-            [3, 2, 1].forEach(i => {
-              setTimeout(() => {
-                groupClient.sendToAll({
-                  type: "system",
-                  message: `${i}...`,
-                  game: game
-                });
-              }, i * 1000);
-            });
+            function countdown(callback) {
+              let count = 3;
 
-            game = await startGame(groupId);
-            groupClient.sendToAll({
-              type: "system",
-              message: `Start Matching!`,
-              game: game
+              const intervalId = setInterval(() => {
+                if (count > 0) {
+                  groupClient.sendToAll({
+                    type: "system",
+                    message: `${count}...`,
+                    game: game
+                  });
+                  count--;
+                } else if (count === 0) {
+                  clearInterval(intervalId);
+                  if (callback) callback();
+                }
+              }, 1000);
+            }
+
+            countdown(async () => {
+              game = await startGame(groupId);
+              groupClient.sendToAll({
+                type: "system",
+                message: `Start Matching!`,
+                game: game
+              });
             });
           }
           break;
