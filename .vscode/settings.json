@@ -1,0 +1,8 @@
+{
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/e4cdbaf1-2e4a-4631-98b1-68459e9b2e64/resourceGroups/WannaWatch/providers/Microsoft.Web/sites/WannaWatch",
+  "appService.deploySubpath": "."
+}
