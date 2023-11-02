@@ -42,7 +42,11 @@ let handler = new WebPubSubEventHandler(hubName, {
     const groupClient = serviceClient.group(groupId);
     await groupClient.removeUser(req.context.userId);
 
-    const game = await removePlayerFromGame(groupId, req.context.userId);
+    const game = await removePlayerFromGame(groupId, req.context.userId).catch(error => {
+      console.error('Error removing player from game:', error);
+      console.log('groupId', groupId);
+      console.log('userId', req.context.userId);
+    });
 
     await groupClient.sendToAll({
       type: "system",
